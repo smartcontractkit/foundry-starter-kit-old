@@ -1,5 +1,5 @@
 {
-    "name": "femplate",
+    "name": "foundry-starter-kit",
     "description": "Minimal Template for Foundry Projects",
     "author": "Andreas Bigger <andreas@nascent.xyz>",
     "license": "AGPL-3.0-only",
@@ -9,7 +9,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/abigger87/femplate.git"
+        "url": "git+https://github.com/abigger87/foundry-starter-kit.git"
     },
     "devDependencies": {
         "hardhat": "^2.7.0",
