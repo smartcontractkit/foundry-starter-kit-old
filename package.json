@@ -9,7 +9,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/abigger87/foundry-starter-kit.git"
+        "url": "git+https://github.com/smartcontractkit/foundry-starter-kit.git"
     },
     "devDependencies": {
         "hardhat": "^2.7.0",
