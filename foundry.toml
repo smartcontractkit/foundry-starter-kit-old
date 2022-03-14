@@ -4,7 +4,7 @@ src = 'src'
 test = 'test'
 out = 'out'
 libs = ['lib']
-# remappings = []
+remappings = ['ds-test/=lib/ds-test/src/']
 libraries = []
 cache = true
 force = false
