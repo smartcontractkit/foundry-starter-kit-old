@@ -40,8 +40,8 @@ And you probably already have `make` installed... but if not [try looking here.]
 ## Getting Started / Quickstart
 
 ```sh
-git clone https://github.com/smartcontractkit/dapptools-starter-kit
-cd dapptools-starter-kit
+git clone https://github.com/smartcontractkit/foundry-starter-kit.git
+cd foundry-starter-kit
 make # This installs the project's dependencies.
 make test
 ```
