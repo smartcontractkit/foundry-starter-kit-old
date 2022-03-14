@@ -12,6 +12,8 @@ Foundry Starter Kit is a repo that shows developers how to quickly build, test, 
 
 This repo is based on the [femplate](https://github.com/gakonst/femplate)
 
+You can also check out the similar [dapptools-starter-kit](https://github.com/smartcontractkit/dapptools-starter-kit)
+
 - [Foundry Starter Kit](#foundry-starter-kit)
 - [Installation](#installation)
   - [Requirements](#requirements)
