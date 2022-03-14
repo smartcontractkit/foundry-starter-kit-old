@@ -1,128 +1,134 @@
-<img align="right" width="150" height="150" top="100" src="./assets/readme.jpg">
+# Foundry Starter Kit
 
-# foundry-starter-kit • [![tests](https://github.com/abigger87/foundry-starter-kit/actions/workflows/tests.yml/badge.svg)](https://github.com/abigger87/foundry-starter-kit/actions/workflows/tests.yml) [![lints](https://github.com/abigger87/foundry-starter-kit/actions/workflows/lints.yml/badge.svg)](https://github.com/abigger87/foundry-starter-kit/actions/workflows/lints.yml) ![GitHub](https://img.shields.io/github/license/abigger87/foundry-starter-kit)  ![GitHub package.json version](https://img.shields.io/github/package-json/v/abigger87/foundry-starter-kit)
+<br/>
+<p align="center">
+<a href="https://chain.link" target="_blank">
+<img src="./img/chainlink-foundry.png" width="225" alt="Chainlink Foundry logo">
+</a>
+</p>
+<br/>
 
+Foundry Starter Kit is a repo that shows developers how to quickly build, test, and deploy smart contracts with one of the fastest frameworks out there, [foundry](https://github.com/gakonst/foundry)!
 
-Backwards Compatible Template for Foundry and DappTools Projects.
+This repo is based on the [femplate](https://github.com/gakonst/femplate)
 
-## Overview
+- [Foundry Starter Kit](#foundry-starter-kit)
+- [Installation](#installation)
+  - [Requirements](#requirements)
+  - [Getting Started / Quickstart](#getting-started--quickstart)
+  - [Testing](#testing)
+- [Deploying to a network](#deploying-to-a-network)
+  - [Setup](#setup)
+  - [Deploying](#deploying)
+- [Contributing](#contributing)
+- [Thank You!](#thank-you)
+  - [Resources](#resources)
+    - [TODO](#todo)
 
-[femplate](https://github.com/abigger87/femplate) is intended to be minimal while also providing backwards compatibility. Thus, both [DappTools](https://dapp.tools/) and [Foundry](https://github.com/gaskonst/foundry) are supported. Installation instructions for both are included below.
+# Installation
 
-## Getting Started
+## Requirements
 
-Click `use this template` on [Github](https://github.com/abigger87/foundry-starter-kit) to create a new repository with this repo as the initial state.
+-   [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+-   [Rust and Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html)
+-   [Foundry](https://github.com/gakonst/foundry)
 
-Run `make rename` to rename all instances of `foundry-starter-kit` with the name of your project/repository.
+And you probably already have `make` installed... but if not [try looking here.](https://askubuntu.com/questions/161104/how-do-i-install-make)
 
-## Blueprint
+## Getting Started / Quickstart
 
-```ml
-lib
-├─ ds-test — https://github.com/dapphub/ds-test
-├─ forge-std — https://github.com/brockelmore/forge-std
-├─ solmate — https://github.com/Rari-Capital/solmate
-├─ clones-with-immutable-args — https://github.com/wighawag/clones-with-immutable-args
-src
-├─ tests
-│  └─ Greeter.t — "Greeter Tests"
-└─ Greeter — "A Minimal Greeter Contract"
-```
-
-## Development
-
-
-**Setup**
-```bash
-make
-# OR #
-make setup
-```
-
-**Building**
-```bash
-make build
-```
-
-**Testing**
-```bash
+```sh
+git clone https://github.com/smartcontractkit/dapptools-starter-kit
+cd dapptools-starter-kit
+make # This installs the project's dependencies.
 make test
 ```
 
-**Deployment & Verification**
+## Testing
 
-Inside the [`scripts/`](./scripts/) directory are a few preconfigured scripts that can be used to deploy and verify contracts.
-
-Scripts take inputs from the cli, using silent mode to hide any sensitive information.
-
-NOTE: These scripts are required to be _executable_ meaning they must be made executable by running `chmod +x ./scripts/*`.
-
-NOTE: For local deployment, make sure to run `yarn` or `npm install` before running the `deploy_local.sh` script. Otherwise, hardhat will error due to missing dependencies.
-
-NOTE: these scripts will prompt you for the contract name and deployed addresses (when verifying). Also, they use the `-i` flag on `forge` to ask for your private key for deployment. This uses silent mode which keeps your private key from being printed to the console (and visible in logs).
-
-### First time with Forge/Foundry?
-
-See the official Foundry installation [instructions](https://github.com/gakonst/foundry/blob/master/README.md#installation).
-
-Don't have [rust](https://www.rust-lang.org/tools/install) installed?
-Run
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+make test
 ```
 
-Then, install the [foundry](https://github.com/gakonst/foundry) toolchain installer (`foundryup`) with:
-```bash
-curl -L https://foundry.paradigm.xyz | bash
+or
+
+```
+forge test
 ```
 
-Now that you've installed the `foundryup` binary,
-anytime you need to get the latest `forge` or `cast` binaries,
-you can run `foundryup`.
+# Deploying to a network
 
-So, simply execute:
-```bash
-foundryup
+Deploying is done by a prompt system rather than a flexible single command to run at this time. If you'd like to contribute by writing some scripts to make deploying easier, please do!
+
+## Setup
+
+You'll need the following:
+
+-   `RPC URL`: A URL to connect to the blockchain. You can get one for free from [Alchemy](https://www.alchemy.com/).
+-   `Private Key`: A private key from your wallet. You can get a private key from a new [Metamask](https://metamask.io/) account
+    -   Additionally, if you want to deploy to a testnet, you'll need test ETH and/or LINK. You can get them from [faucets.chain.link](https://faucets.chain.link/).
+-   `Constructor Arguments`: These are the arguments that you pass to your smart contract on deployment. If you look at the `constructor` function in each contract, those are the values that they need. If you want some examples, we've provided some in our `scripts/helper-config.sh` file.
+-   `Contract`: The name of the contract you want to deploy, ie `PriceFeedConsumer`.
+
+## Deploying
+
+```
+bash scripts/deploy_<NETWORK>.sh
 ```
 
-🎉 Foundry is installed! 🎉
+You'll be prompted for the following:
 
-### Writing Tests with Foundry
+```
+Enter Your Rinkeby RPC URL:
+Example: https://eth-mainnet.alchemyapi.io/v2/XXXXXXXXXX
 
-With [Foundry](https://gakonst.xyz), tests are written in Solidity! 🥳
+Which contract do you want to deploy (eg Greeter)?
+Enter constructor arguments separated by spaces (eg 1 2 3):
 
-Create a test file for your contract in the `src/tests/` directory.
+compiling...
+success.
+Insert private key:
+0x<PRIVATE_KEY_HERE>
+```
 
-For example, [`src/Greeter.sol`](./src/Greeter.sol) has its test file defined in [`./src/tests/Greeter.t.sol`](./src/tests/Greeter.t.sol).
+Full Example:
 
-To learn more about writing tests in Solidity for Foundry and Dapptools, reference Rari Capital's [solmate](https://github.com/Rari-Capital/solmate/tree/main/src/test) repository largely created by [@transmissions11](https://twitter.com/transmissions11).
+```
+bash scripts/deploy_rinkeby.sh
 
-### Configure Foundry
+Enter Your Rinkeby RPC URL:
+https://eth-rinkeby.alchemyapi.io/v2/XXXXXX
 
-Using [foundry.toml](./foundry.toml), Foundry is easily configurable.
+Which contract do you want to deploy (eg Greeter)?
+PriceFeedConsumer
 
-For a full list of configuration options, see the Foundry [configuration documentation](https://github.com/gakonst/foundry/blob/master/config/README.md#all-options).
+Enter constructor arguments separated by spaces (eg 1 2 3):
+0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
 
-### Install DappTools
+Insert private key:
+0xXXXXXXX
 
-Install DappTools using their [installation guide](https://github.com/dapphub/dapptools#installation).
+Deployer: 0x643315c9be056cdea171f4e7b2222a4ddab9f88d
+Deployed to: 0xec8af3f6c8725cc60e6ecc0009ad9e756e9723e0
+```
 
+# Contributing
 
-## License
+Contributions are always welcome! Open a PR or an issue!
 
-[AGPL-3.0-only](https://github.com/abigger87/foundry-starter-kit/blob/master/LICENSE)
+# Thank You!
 
-## Acknowledgements
+## Resources
 
-- [femplate](https://github.com/abigger87/femplate)
-- [foundry](https://github.com/gakonst/foundry)
-- [solmate](https://github.com/Rari-Capital/solmate)
-- [forge-std](https://github.com/brockelmore/forge-std)
-- [clones-with-immutable-args](https://github.com/wighawag/clones-with-immutable-args).
-- [foundry-toolchain](https://github.com/onbjerg/foundry-toolchain) by [onbjerg](https://github.com/onbjerg).
-- [forge-template](https://github.com/FrankieIsLost/forge-template) by [FrankieIsLost](https://github.com/FrankieIsLost).
-- [Georgios Konstantopoulos](https://github.com/gakonst) for [forge-template](https://github.com/gakonst/forge-template) resource.
+-   [Chainlink Documentation](https://docs.chain.link/)
+-   [Foundry Documentation](https://onbjerg.github.io/foundry-book/)
 
-## Disclaimer
+### TODO
 
-_These smart contracts are being provided as is. No guarantee, representation or warranty is being made, express or implied, as to the safety or correctness of the user interface or the smart contracts. They have not been audited and as such there can be no assurance they will work as intended, and users may experience delays, failures, errors, omissions, loss of transmitted information or loss of funds. The creators are not liable for any of the foregoing. Users should proceed with caution and use at their own risk._
+[ ] Make deployment more modular like in [dapptools-starter-kit](https://github.com/smartcontractkit/dapptools-starter-kit)
+
+[ ] Enable network & contract choice from the command line
+
+[ ] Add scripts that interact with deployed contracts
+
+[ ] Add documentation for running on a local network with hardhat & a forked network
