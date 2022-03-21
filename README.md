@@ -32,8 +32,7 @@ You can also check out the similar [dapptools-starter-kit](https://github.com/sm
 ## Requirements
 
 -   [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
--   [Rust and Cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html)
--   [Foundry](https://github.com/gakonst/foundry)
+-   [Foundry / Foundryup](https://github.com/gakonst/foundry)
 
 And you probably already have `make` installed... but if not [try looking here.](https://askubuntu.com/questions/161104/how-do-i-install-make)
 
