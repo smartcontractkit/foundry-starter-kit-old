@@ -76,7 +76,7 @@ contract APIConsumer is ChainlinkClient {
         //   }
         //  }
         // request.add("path", "RAW.ETH.USD.VOLUME24HOUR"); // Chainlink node versions prior to 1.0.0 supported this format
-        equest.add("path", "RAW,ETH,USD,VOLUME24HOUR");
+        request.add("path", "RAW,ETH,USD,VOLUME24HOUR");
 
         // Multiply the result by 1000000000000000000 to remove decimals
         int256 timesAmount = 10**18;
