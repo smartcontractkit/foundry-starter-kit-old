@@ -3,36 +3,36 @@
 pragma solidity ^0.8.0;
 
 import "../KeepersCounter.sol";
-import "ds-test/test.sol";
+import "@std/Test.sol";
 import "./utils/Cheats.sol";
 
-contract KeepersCounterTest is DSTest {
+contract KeepersCounterTest is Test {
     KeepersCounter public counter;
     uint256 public staticTime;
-    uint256 public INTERVAL;
+    uint256 public interval;
     Cheats internal constant cheats = Cheats(HEVM_ADDRESS);
 
     function setUp() public {
         staticTime = block.timestamp;
-        counter = new KeepersCounter(INTERVAL);
+        counter = new KeepersCounter(interval);
         cheats.warp(staticTime);
     }
 
-    function test_checkup_returns_false_before_time() public {
+    function testCheckupReturnsFalseBeforeTime() public {
         (bool upkeepNeeded, ) = counter.checkUpkeep("0x");
         assertTrue(!upkeepNeeded);
     }
 
-    function test_checkup_returns_true_after_time() public {
-        cheats.warp(staticTime + INTERVAL + 1); // Needs to be more than the interval
+    function testCheckupReturnsTrueAfterTime() public {
+        cheats.warp(staticTime + interval + 1); // Needs to be more than the interval
         (bool upkeepNeeded, ) = counter.checkUpkeep("0x");
         assertTrue(upkeepNeeded);
     }
 
-    function test_performUpkeep_updates_time() public {
+    function testPerformUpkeepUpdatesTime() public {
         // Arrange
         uint256 currentCounter = counter.counter();
-        cheats.warp(staticTime + INTERVAL + 1); // Needs to be more than the interval
+        cheats.warp(staticTime + interval + 1); // Needs to be more than the interval
 
         // Act
         counter.performUpkeep("0x");
@@ -42,7 +42,7 @@ contract KeepersCounterTest is DSTest {
         assertTrue(currentCounter + 1 == counter.counter());
     }
 
-    function test_fuzzing_example(bytes memory variant) public {
+    function testFuzzingExample(bytes memory variant) public {
         // We expect this to fail, no matter how different the input is!
         cheats.expectRevert(bytes("Time interval not met"));
         counter.performUpkeep(variant);

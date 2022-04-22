@@ -12,3 +12,5 @@ node_modules
 
 # Ignore flattened files
 flattened.txt
+
+.gas-snapshot

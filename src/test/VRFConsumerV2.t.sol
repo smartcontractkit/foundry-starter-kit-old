@@ -5,21 +5,21 @@ import "../VRFConsumerV2.sol";
 import "./mocks/MockVRFCoordinatorV2.sol";
 import "./mocks/LinkToken.sol";
 import "./utils/Cheats.sol";
-import "ds-test/test.sol";
+import "@std/Test.sol";
 
-contract VRFConsumerV2Test is DSTest {
+contract VRFConsumerV2Test is Test {
     LinkToken public linkToken;
     MockVRFCoordinatorV2 public vrfCoordinator;
     VRFConsumerV2 public vrfConsumer;
     Cheats internal constant cheats = Cheats(HEVM_ADDRESS);
 
-    uint96 constant FUND_AMOUNT = 1 * 10**18;
+    uint96 public constant FUND_AMOUNT = 1 * 10**18;
 
     // Initialized as blank, fine for testing
-    uint64 subId;
-    bytes32 keyHash; // gasLane
+    uint64 public subId;
+    bytes32 public keyHash; // gasLane
 
-    event ReturnedRandomness(uint256[] randomWords);
+    event ReturnedRandomness(uint256 requestId, uint256[] randomWords);
 
     function setUp() public {
         linkToken = new LinkToken();
@@ -34,30 +34,30 @@ contract VRFConsumerV2Test is DSTest {
         );
     }
 
-    function test_can_request_randomness() public {
-        uint256 startingRequestId = vrfConsumer.s_requestId();
+    function testCanRequestRandomness() public {
+        uint256 startingRequestId = vrfConsumer.requestId();
         vrfConsumer.requestRandomWords();
-        assertTrue(vrfConsumer.s_requestId() != startingRequestId);
+        assertTrue(vrfConsumer.requestId() != startingRequestId);
     }
 
-    function test_can_get_random_response() public {
+    function testCanGetRandomResponse() public {
         vrfConsumer.requestRandomWords();
-        uint256 requestId = vrfConsumer.s_requestId();
+        uint256 requestId = vrfConsumer.requestId();
 
         uint256[] memory words = getWords(requestId);
 
         vrfCoordinator.fulfillRandomWords(requestId, address(vrfConsumer));
-        assertTrue(vrfConsumer.s_randomWords(0) == words[0]);
-        assertTrue(vrfConsumer.s_randomWords(1) == words[1]);
+        assertTrue(vrfConsumer.randomWords(0) == words[0]);
+        assertTrue(vrfConsumer.randomWords(1) == words[1]);
     }
 
-    function test_emits_event_on_fulfillment() public {
+    function testEmitsEventOnFulfillment() public {
         vrfConsumer.requestRandomWords();
-        uint256 requestId = vrfConsumer.s_requestId();
+        uint256 requestId = vrfConsumer.requestId();
         uint256[] memory words = getWords(requestId);
 
         cheats.expectEmit(false, false, false, true);
-        emit ReturnedRandomness(words);
+        emit ReturnedRandomness(requestId, words);
         vrfCoordinator.fulfillRandomWords(requestId, address(vrfConsumer));
     }
 
@@ -66,8 +66,8 @@ contract VRFConsumerV2Test is DSTest {
         view
         returns (uint256[] memory)
     {
-        uint256[] memory words = new uint256[](vrfConsumer.s_numWords());
-        for (uint256 i = 0; i < vrfConsumer.s_numWords(); i++) {
+        uint256[] memory words = new uint256[](vrfConsumer.numWords());
+        for (uint256 i = 0; i < vrfConsumer.numWords(); i++) {
             words[i] = uint256(keccak256(abi.encode(requestId, i)));
         }
         return words;
