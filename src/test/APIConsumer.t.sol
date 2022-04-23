@@ -4,20 +4,20 @@ pragma solidity ^0.8.0;
 
 import "../APIConsumer.sol";
 import "./mocks/LinkToken.sol";
-import "ds-test/test.sol";
+import "@std/Test.sol";
 import "./mocks/MockOracle.sol";
 
-contract APIConsumerTest is DSTest {
+contract APIConsumerTest is Test {
     APIConsumer public apiConsumer;
     LinkToken public linkToken;
     MockOracle public mockOracle;
 
-    bytes32 jobId;
-    uint256 fee;
-    bytes32 blank_bytes32;
+    bytes32 public jobId;
+    uint256 public fee;
+    bytes32 public blankBytes32;
 
-    uint256 constant AMOUNT = 1 * 10**18;
-    uint256 constant RESPONSE = 777;
+    uint256 public constant AMOUNT = 1 * 10**18;
+    uint256 public constant RESPONSE = 777;
 
     function setUp() public {
         linkToken = new LinkToken();
@@ -31,12 +31,12 @@ contract APIConsumerTest is DSTest {
         linkToken.transfer(address(apiConsumer), AMOUNT);
     }
 
-    function test_can_make_request() public {
+    function testCanMakeRequest() public {
         bytes32 requestId = apiConsumer.requestVolumeData();
-        assertTrue(requestId != blank_bytes32);
+        assertTrue(requestId != blankBytes32);
     }
 
-    function test_can_get_response() public {
+    function testCanGetResponse() public {
         bytes32 requestId = apiConsumer.requestVolumeData();
         mockOracle.fulfillOracleRequest(requestId, bytes32(RESPONSE));
         assertTrue(apiConsumer.volume() == RESPONSE);

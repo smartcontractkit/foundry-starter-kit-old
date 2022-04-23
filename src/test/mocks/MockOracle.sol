@@ -96,7 +96,7 @@ contract MockOracle is ChainlinkRequestInterface, LinkTokenReceiver {
         bytes4 callbackFunctionId;
     }
 
-    LinkTokenInterface internal LinkToken;
+    LinkTokenInterface internal linkToken;
     mapping(bytes32 => Request) private commitments;
 
     event OracleRequest(
@@ -118,8 +118,8 @@ contract MockOracle is ChainlinkRequestInterface, LinkTokenReceiver {
      * @dev Sets the LinkToken address for the imported LinkTokenInterface
      * @param _link The address of the LINK token
      */
-    constructor(address _link) public {
-        LinkToken = LinkTokenInterface(_link); // external but already deployed and unalterable
+    constructor(address _link) {
+        linkToken = LinkTokenInterface(_link); // external but already deployed and unalterable
     }
 
     /**
@@ -191,9 +191,10 @@ contract MockOracle is ChainlinkRequestInterface, LinkTokenReceiver {
         // All updates to the oracle's fulfillment should come before calling the
         // callback(addr+functionId) as it is untrusted.
         // See: https://solidity.readthedocs.io/en/develop/security-considerations.html#use-the-checks-effects-interactions-pattern
+        // solhint-disable-next-line avoid-low-level-calls
         (bool success, ) = req.callbackAddr.call(
             abi.encodeWithSelector(req.callbackFunctionId, _requestId, _data)
-        ); // solhint-disable-line avoid-low-level-calls
+        );
         return success;
     }
 
@@ -222,7 +223,7 @@ contract MockOracle is ChainlinkRequestInterface, LinkTokenReceiver {
         delete commitments[_requestId];
         emit CancelOracleRequest(_requestId);
 
-        assert(LinkToken.transfer(msg.sender, _payment));
+        assert(linkToken.transfer(msg.sender, _payment));
     }
 
     /**
@@ -231,7 +232,7 @@ contract MockOracle is ChainlinkRequestInterface, LinkTokenReceiver {
      * an internal method of the ChainlinkClient contract
      */
     function getChainlinkToken() public view override returns (address) {
-        return address(LinkToken);
+        return address(linkToken);
     }
 
     // MODIFIERS
@@ -253,7 +254,7 @@ contract MockOracle is ChainlinkRequestInterface, LinkTokenReceiver {
      * @param _to The callback address
      */
     modifier checkCallbackAddress(address _to) {
-        require(_to != address(LinkToken), "Cannot callback to LINK");
+        require(_to != address(linkToken), "Cannot callback to LINK");
         _;
     }
 }

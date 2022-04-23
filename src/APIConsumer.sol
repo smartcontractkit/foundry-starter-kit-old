@@ -35,7 +35,7 @@ contract APIConsumer is ChainlinkClient {
         bytes32 _jobId,
         uint256 _fee,
         address _link
-    ) public {
+    ) {
         if (_link == address(0)) {
             setPublicChainlinkToken();
         } else {
@@ -75,7 +75,8 @@ contract APIConsumer is ChainlinkClient {
         //    }
         //   }
         //  }
-        // request.add("path", "RAW.ETH.USD.VOLUME24HOUR"); // Chainlink node versions prior to 1.0.0 supported this format
+        // request.add("path", "RAW.ETH.USD.VOLUME24HOUR");
+        // Chainlink node versions prior to 1.0.0 supported this format
         request.add("path", "RAW,ETH,USD,VOLUME24HOUR");
 
         // Multiply the result by 1000000000000000000 to remove decimals
@@ -104,5 +105,6 @@ contract APIConsumer is ChainlinkClient {
      * @notice Witdraws LINK from the contract
      * @dev Implement a withdraw function to avoid locking your LINK in the contract
      */
+    // solhint-disable-next-line no-empty-blocks
     function withdrawLink() external {}
 }

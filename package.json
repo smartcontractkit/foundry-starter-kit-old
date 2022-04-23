@@ -14,13 +14,16 @@
     "devDependencies": {
         "hardhat": "^2.7.0",
         "prettier": "^2.3.1",
-        "prettier-plugin-solidity": "^1.0.0-beta.13"
+        "prettier-plugin-solidity": "^1.0.0-beta.13",
+        "solhint": "^3.3.7",
+        "solhint-plugin-prettier": "^0.0.5"
     },
     "scripts": {
         "setup": "make clean && make build",
         "sync": "make update",
         "test": "make test",
         "snapshot": "make snapshot",
-        "lint": "make lint"
+        "lint": "make lint",
+        "sol-prettier": "make sol-prettier"
     }
 }
