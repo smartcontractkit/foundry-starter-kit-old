@@ -20,20 +20,20 @@ install :; forge install dapphub/ds-test && forge install rari-capital/solmate &
 update:; forge update
 
 # Builds
-build  :; forge clean && forge build --optimize --optimize-runs 1000000
+build  :; forge clean && forge build --optimize --optimizer-runs 1000000
 dappbuild :; dapp build
 
 # chmod scripts
 scripts :; chmod +x ./scripts/*
 
 # Tests
-test   :; forge clean && forge test --optimize --optimize-runs 1000000 -v # --ffi # enable if you need the `ffi` cheat code on HEVM
+test   :; forge clean && forge test --optimize --optimizer-runs 1000000 -v # --ffi # enable if you need the `ffi` cheat code on HEVM
 
 # Lints
 lint :; yarn prettier --write src/**/*.sol && prettier --write src/*.sol
 
 # Generate Gas Snapshots
-snapshot :; forge clean && forge snapshot --optimize --optimize-runs 1000000
+snapshot :; forge clean && forge snapshot --optimize --optimizer-runs 1000000
 
 # Fork Mainnet With Hardhat
 mainnet-fork :; npx hardhat node --fork ${ETH_MAINNET_RPC_URL}
