@@ -17,7 +17,7 @@ remove :; rm -rf .gitmodules && rm -rf .git/modules/* && rm -rf lib && touch .gi
 install :; forge install dapphub/ds-test && forge install rari-capital/solmate && forge install foundry-rs/forge-std && forge install ZeframLou/clones-with-immutable-args && forge install smartcontractkit/chainlink-brownie-contracts
 
 # Update Dependencies
-update:; git pull --recurse-submodules && forge update
+update:; forge update
 
 # Builds
 build  :; forge clean && forge build --optimize --optimize-runs 1000000
