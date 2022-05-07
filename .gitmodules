@@ -10,3 +10,6 @@
 [submodule "lib/clones-with-immutable-args"]
 	path = lib/clones-with-immutable-args
 	url = https://github.com/ZeframLou/clones-with-immutable-args
+[submodule "lib/chainlink-brownie-contracts"]
+	path = lib/chainlink-brownie-contracts
+	url = https://github.com/smartcontractkit/chainlink-brownie-contracts
