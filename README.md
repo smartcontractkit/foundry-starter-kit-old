@@ -1,3 +1,5 @@
+Note: This is now the old version of this template. Please see [the new one here](https://github.com/smartcontractkit/foundry-starter-kit)
+
 # Foundry Starter Kit
 
 <br/>
